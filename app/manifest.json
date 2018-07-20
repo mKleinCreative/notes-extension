@@ -41,7 +41,7 @@
         "scripts/titlebar.js"
       ],
       "run_at": "document_end",
-      "all_frames": false
+      "all_frames": true
     }
   ],
   "omnibox": {

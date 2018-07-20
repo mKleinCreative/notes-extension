@@ -1,37 +1,39 @@
-const closeWindow = () => {
+console.log("hello from titlebar!")
+
+function closeWindow() {
   window.close();
 }
 
-const updateImageUrl = (image_id, new_image_url) => {
+function updateImageUrl(image_id, new_image_url) {
   var image = document.getElementById(image_id);
   if (image)
     image.src = new_image_url;
 }
 
-const createImage = (image_id, image_url) => {
+function createImage(image_id, image_url) {
   var image = document.createElement("img");
   image.setAttribute("id", image_id);
   image.src = image_url;
   return image;
 }
 
-const createButton = (button_id, button_name, normal_image_url,
-  hover_image_url, click_func) => {
+function createButton(button_id, button_name, normal_image_url,
+  hover_image_url, click_func) {
   var button = document.createElement("div");
   button.setAttribute("class", button_name);
   var button_img = createImage(button_id, normal_image_url);
   button.appendChild(button_img);
-  button.onmouseover = () => {
+  button.onmouseover = function() {
     updateImageUrl(button_id, hover_image_url);
   }
-  button.onmouseout = () => {
+  button.onmouseout = function() {
     updateImageUrl(button_id, normal_image_url);
   }
   button.onclick = click_func;
   return button;
 }
 
-const focusTitlebars = (focus) => {
+function focusTitlebars(focus) {
   var bg_color = focus ? "#3a3d3d" : "#7a7c7c";
 
   var titlebar = document.getElementById("titlebar-top");
@@ -48,7 +50,7 @@ const focusTitlebars = (focus) => {
     titlebar.style.backgroundColor = bg_color;
 }
 
-const addTitlebar = (titlebar_name, titlebar_icon_url, titlebar_text) => {
+function addTitlebar(titlebar_name, titlebar_icon_url, titlebar_text) {
   var titlebar = document.createElement("div");
   titlebar.setAttribute("id", titlebar_name);
   titlebar.setAttribute("class", titlebar_name);
@@ -66,7 +68,6 @@ const addTitlebar = (titlebar_name, titlebar_icon_url, titlebar_text) => {
   var closeButton = createButton(titlebar_name + "-close-button",
     titlebar_name + "-close-button",
     "button_close.png",
-    "button_close_hover.png",
     closeWindow);
   titlebar.appendChild(closeButton);
 
@@ -77,13 +78,13 @@ const addTitlebar = (titlebar_name, titlebar_icon_url, titlebar_text) => {
   document.body.appendChild(titlebar);
 }
 
-const removeTitlebar = (titlebar_name) => {
+function removeTitlebar(titlebar_name) {
   var titlebar = document.getElementById(titlebar_name);
   if (titlebar)
     document.body.removeChild(titlebar);
 }
 
-const updateContentStyle = () => {
+function updateContentStyle() {
   var content = document.getElementById("content");
   if (!content)
     return;
