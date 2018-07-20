@@ -2,7 +2,7 @@ chrome.app.runtime.onLaunched.addListener(function () {
   chrome.app.window.create("index.html",
     {
       frame: "none",
-      id: "framelessWinID",
+      id: "postHub",
       innerBounds: {
         width: 360,
         height: 300,
