@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <style>
+      body,
+      html {
+        padding: 0;
+        margin: 0;
+      }
+
+      #top-fix,
+      #bottom-fix {
+        -webkit-app-region: no-drag;
+        height: 0px;
+        width: 100%;
+        position: absolute;
+
+        left: 0;
+        z-index: 0;
+        background: red;
+      }
+
+      #top-fix {
+        top: 0;
+      }
+
+      #bottom-fix {
+        bottom: 0;
+      }
+
+      #test {
+        -webkit-app-region: drag;
+        background: yellow;
+        height: 100%;
+        width: 100%;
+        z-index: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="top-fix"></div>
+    <div id="test">click me</div>
+    <div id="bottom-fix"></div>
+  </body>
+</html>
