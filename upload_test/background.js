@@ -3,6 +3,7 @@ chrome.app.runtime.onLaunched.addListener(function () {
     {
       frame: "none",
       id: "postHub",
+      alwaysOnTop: true,
       innerBounds: {
         width: 360,
         height: 300,

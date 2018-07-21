@@ -1,4 +1,5 @@
 const createPostit = document.querySelector(".postit__create");
+const deletePostit = document.querySelector(".postit__delete");
 
 function* idMaker() {
   var index = 0;
@@ -13,6 +14,7 @@ createPostit.onclick = function(element) {
     {
       frame: "none",
       id: `postit-${idFactory.next().value}`,
+      alwaysOnTop: true,gaa
       innerBounds: {
         width: 360,
         height: 300,
@@ -22,4 +24,8 @@ createPostit.onclick = function(element) {
       }
     }
   );
+}
+
+deletePostit.onclick = function() {
+  window.close()
 }

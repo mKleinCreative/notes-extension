@@ -8,7 +8,6 @@ function randomColor() {
   return `rgb(${randomR}, ${randomG}, ${randomB})`
 }
 
-
 editButton.onclick = function() {
   postit.setAttribute("style", `background: ${randomColor()}`)
 }
