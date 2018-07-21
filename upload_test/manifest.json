@@ -3,9 +3,6 @@
   "description": "Chrome platform app.",
   "manifest_version": 2,
   "version": "0.2",
-  "icons": {
-    "128": "cardBack.jpg"
-  },
   "app": {
     "background": {
       "scripts": [

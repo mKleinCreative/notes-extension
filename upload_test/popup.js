@@ -22,5 +22,4 @@ createPostit.onclick = function(element) {
       }
     }
   );
-  console.log('idFactory.next().value (╯°□°)╯︵ ┻━┻ ', idFactory.next().value)
 }
