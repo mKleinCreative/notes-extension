@@ -14,7 +14,7 @@ createPostit.onclick = function(element) {
     {
       frame: "none",
       id: `postit-${idFactory.next().value}`,
-      alwaysOnTop: true,gaa
+      alwaysOnTop: true,
       innerBounds: {
         width: 360,
         height: 300,
