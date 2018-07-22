@@ -6,10 +6,12 @@
         padding: 0;
         margin: 0;
       }
-
       .draggable {
         -webkit-app-region: drag;
-        background: yellow;
+        position: relative;
+        display: block;
+        background: lemonchiffon;
+        border: 5px solid yellow;
         height: 100%;
         width: 100%;
         position: absolute;
@@ -28,6 +30,15 @@
       .postit__edit:hover {
         cursor: pointer;
       }
+      .postit__content {
+        display: block;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 40px;
+        left: 10px;
+        z-index: 15;
+      }
     </style>
   </head>
   <body>
@@ -35,6 +46,9 @@
       <button class="postit__create">&#43</button>
       <button class="postit__edit"><img class="postit__edit-image" src="./images/edit_icon.svg" alt="edit"></button>
       <button class="postit__delete">x</button>
+    </div>
+    <div class="postit__content" contenteditable="true">
+      Click here to get producing!
     </div>
     <script src="popup.js"></script>
     <script src="editCSS.js"></script>
