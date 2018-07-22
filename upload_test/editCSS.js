@@ -24,6 +24,5 @@ editButton.onclick = function() {
     border: 5px solid ${colorTheme[1]}`
   )
   postitContent.setAttribute("style", `color: ${colorTheme[2]};`)
-  colorTheme = null;
 }
 
