@@ -29,11 +29,10 @@ createPostit.onclick = function(element) {
       }
     }, async function (newWindow) {
       let newWindowMade = await newWindow
+      console.log('newWindowMade (╯°□°)╯︵ ┻━┻ ', newWindowMade)
       if (newWindowMade) {
-        let test = $($(newWindow.contentWindow.document), "body")
-        console.log('test, aka  $($(newWindow.contentWindow.document), "body")',test)
-        console.log('content for new window', newWindow.contentWindow)
-        console.log('new window', newWindow)
+        let test = $($(newWindow.contentWindow.document.documentElement), "body")
+        console.log('test', test[0])
       }
     }
   )
