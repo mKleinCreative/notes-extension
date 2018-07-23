@@ -27,9 +27,14 @@ createPostit.onclick = function(element) {
         minWidth: 220,
         minHeight: 220
       }
-    }, (newWindow) => {
-      console.log(newWindow)
-      newWindow
+    }, async function (newWindow) {
+      let newWindowMade = await newWindow
+      if (newWindowMade) {
+        let test = $($(newWindow.contentWindow.document), "body")
+        console.log('test, aka  $($(newWindow.contentWindow.document), "body")',test)
+        console.log('content for new window', newWindow.contentWindow)
+        console.log('new window', newWindow)
+      }
     }
   )
 
