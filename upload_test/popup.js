@@ -17,8 +17,6 @@ let colorTheme = {
   },
 };
 
-console.log('theme', colorTheme)
-editButton.onclick = function () { }
 
 function* idMaker() {
   var index = 0;

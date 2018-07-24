@@ -7,8 +7,6 @@ html {
   -webkit-app-region: drag;
   position: relative;
   display: block;
-  background: lemonchiffon;
-  border: 5px solid yellow;
   height: 100%;
   width: 100%;
   position: absolute;
