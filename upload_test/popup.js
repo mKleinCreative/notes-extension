@@ -1,8 +1,24 @@
+const createThemedPostit = document.querySelector(".postit__create-themed-note");
 const createPostit = document.querySelector(".postit__create");
 const deletePostit = document.querySelector(".postit__delete");
 const parentStyle = document.querySelector("style");
+const editButton = document.querySelector('.postit__edit');
+const postit = document.querySelector('.draggable');
+const postitContent = document.querySelector('.postit__content');
+let colorTheme = {
+  lemon: {
+    cssFilePath: './themes/lemon.css'
+  },
+  grape: {
+    cssFilePath: './themes/grape.css'
+  },
+  watermelon: {
+    cssFilePath: './themes/watermelon.css'
+  },
+};
 
-console.log("parent style", parentStyle);
+console.log('theme', colorTheme)
+editButton.onclick = function () { }
 
 function* idMaker() {
   var index = 0;
@@ -12,10 +28,8 @@ function* idMaker() {
 
 var idFactory = idMaker();
 
-
-createPostit.onclick = function(element) {
-  let parent = chrome.app.window.current()
-  newWindow = chrome.app.window.create("index.html",
+const postItFactory = (element) => {
+  newWindow = chrome.app.window.create("note.html",
     {
       frame: "none",
       id: `postit-${idFactory.next().value}`,
@@ -32,13 +46,13 @@ createPostit.onclick = function(element) {
       console.log('newWindowMade (╯°□°)╯︵ ┻━┻ ', newWindowMade)
       if (newWindowMade) {
         let test = $($(newWindow.contentWindow.document.documentElement), "body")
-        console.log('test', test[0])
       }
     }
   )
-
-  // element.style = parentStyle
 }
+
+$(createPostit).click(() => { postItFactory() })
+$(createThemedPostit).click(() => { postItFactory() })
 
 deletePostit.onclick = function() {
   window.close()

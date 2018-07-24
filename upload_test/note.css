@@ -1,0 +1,37 @@
+body,
+html {
+  padding: 0;
+  margin: 0;
+}
+.draggable {
+  -webkit-app-region: drag;
+  position: relative;
+  display: block;
+  background: lemonchiffon;
+  border: 5px solid yellow;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: black;
+}
+.postit__delete .postit__create,
+.postit__edit-image {
+  width: 8px;
+  height: 8px;
+}
+.postit__delete:hover,
+.postit__create:hover,
+.postit__edit:hover {
+  cursor: pointer;
+}
+.postit__content {
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 40px;
+  left: 10px;
+  z-index: 15;
+}
