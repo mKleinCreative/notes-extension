@@ -3,6 +3,9 @@ html {
   padding: 0;
   margin: 0;
 }
+#dashboard__container {
+  -webkit-app-region: drag;
+}
 .draggable {
   -webkit-app-region: drag;
   position: relative;
@@ -14,13 +17,16 @@ html {
   left: 0;
   color: black;
 }
-.postit__delete .postit__create,
+.postit__delete,
+.postit__create,
+.postit__create-themed-note,
 .postit__edit-image {
   width: 8px;
   height: 8px;
 }
 .postit__delete:hover,
 .postit__create:hover,
+.postit__create-themed-note:hover,
 .postit__edit:hover {
   cursor: pointer;
 }

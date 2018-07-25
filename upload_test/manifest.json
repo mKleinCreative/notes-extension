@@ -12,10 +12,25 @@
   },
   "permissions": [
     "background",
+    "contextMenus",
     "clipboardRead",
     "clipboardWrite",
     "storage",
     "alwaysOnTopWindows",
     "webview"
-  ]
+  ],
+  "webview": {
+    "partitions": [
+      {
+        "name": "note_dashboard",
+        "accessible_resources": [
+          "new_note.html",
+          "jquery-3.3.1.min.js",
+          "*.js",
+          "*.html",
+          "*.css"
+        ]
+      }
+    ]
+  }
 }

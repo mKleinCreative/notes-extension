@@ -4,12 +4,17 @@
   </head>
   <body>
     <div id="dashboard__container">
-      <button class="postit__create-themed-note">&#43</button>
-      <button class="postit__delete">x</button>
-      <webview id="dashboard__content" src="http://www.google.com/" style="width:640px; height:480px" targetUrl="localhost:8000"></webview>
+        <button class="postit__create-themed-note" data-theme="lemon">
+          &#43
+        </button>
+        <button class="postit__delete">
+          x
+        </button>
+      <webview id="dashboard__content" src="#" style="width:640px; height:480px" targetUrl="localhost:8000" partition="persist:notes" name="note_dashboard">
+      </webview>
     </div>
     <script src="jquery-3.3.1.min.js"></script>
-    <script src="popup.js"></script>
+    <script src="parentThemedWindow.js"></script>
     <script src="editTheme.js"></script>
   </body>
 </html>

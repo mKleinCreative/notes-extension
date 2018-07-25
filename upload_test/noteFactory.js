@@ -5,6 +5,7 @@ const parentStyle = document.querySelector("style");
 const editButton = document.querySelector('.postit__edit');
 const postit = document.querySelector('.draggable');
 const postitContent = document.querySelector('.postit__content');
+
 let colorTheme = {
   lemon: {
     cssFilePath: './themes/lemon.css'
@@ -27,7 +28,7 @@ function* idMaker() {
 var idFactory = idMaker();
 
 const postItFactory = (element) => {
-  newWindow = chrome.app.window.create("note.html",
+  newWindow = chrome.app.window.create("new_note.html",
     {
       frame: "none",
       id: `postit-${idFactory.next().value}`,
@@ -50,7 +51,10 @@ const postItFactory = (element) => {
 }
 
 $(createPostit).click(() => { postItFactory() })
-$(createThemedPostit).click(() => { postItFactory() })
+
+$(deletePostit).on("click", function() {
+  window.close()
+})
 
 deletePostit.onclick = function() {
   window.close()

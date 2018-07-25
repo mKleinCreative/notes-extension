@@ -1,4 +1,5 @@
-// const createThemedPostit = document.querySelector(".postit__create");
+const createThemedPostit = document.querySelector(".postit__create-themed-note");
+const dashboard = document.querySelector("#dashboard__content");
 
 function* idMaker() {
   var index = 0;
@@ -17,7 +18,7 @@ const postItFactory = (element) => {
   console.log('fileName', fileName);
 
   newWindow = chrome.app.window.create(
-    "note.html",
+    "new_note.html",
     {
       frame: "none",
       id: `postit-${theme}-${idFactory.next().value}`,
@@ -33,6 +34,10 @@ const postItFactory = (element) => {
       let newWindowMade = await newWindow
       console.log('newWindowMade (╯°□°)╯︵ ┻━┻ ', newWindowMade)
       if (newWindowMade) {
+        newWindow.contentWindow.document.documentElement
+        .addEventListener('contentload', function () {
+          newWindow.executeScript({ code: 'document.body.style.fontSize = "42px"' });
+        });
         let test = $($(newWindow.contentWindow.document.documentElement), "body")
         console.log('test (╯°□°)╯︵ ┻━┻ ', test)
       }
@@ -40,8 +45,16 @@ const postItFactory = (element) => {
   )
 }
 
-// $(".postit__create").click(function() { postItFactory( $(this) )})
+$(".postit__create-themed-note").click(function() { postItFactory( $(this) )})
 
+
+
+dashboard.addEventListener('newwindow', function (e) {
+  var newWebview = document.createElement('webview');
+  e.window.openWindowDispostion = "new_window"
+  document.body.appendChild(newWebview);
+  e.window.attach(newWebview);
+});
 
 
 // function onNewWindow(event) {
@@ -87,29 +100,29 @@ const postItFactory = (element) => {
 //   webview.addEventListener('newwindow', onNewWindow);
 // };
 
-chrome.app.runtime.onLaunched.addListener(function () {
-  $(".postit__create").on("click", function(e) {
-    postItFactory($(this))
-  })
-  chrome.app.window.create(
-    'note.html',
-    { 'width': 1000, 'height': 1000 },
-    function (win) {
-      win.contentWindow.onload = function () {
-        var webview = win.contentWindow.document.querySelector('#dashboard__content');
-        webview.addEventListener('newwindow', function (e) {
-          e.preventDefault();
-          // e.targetUrl contains the target URL of the original link click
-          // or window.open() call: use it to open your own window to it.
-          // Something to keep in mind: window.open() called from the
-          // app's event page is currently (Nov 2013) handicapped and buggy
-          // (e.g. it doesn't have access to local storage, including cookie
-          // store). You can try to use it here and below, but be prepare that
-          // it may sometimes produce bad results.
-          console.log('hi');
-          // chrome.app.window.create(e.targetUrl, ...);
-        });
-      };
-    }
-  );
-});
+// chrome.app.runtime.onLaunched.addListener(function () {
+//   $(".postit__create").on("click", function(e) {
+//     postItFactory($(this))
+//   })
+//   chrome.app.window.create(
+//     'note.html',
+//     { 'width': 1000, 'height': 1000 },
+//     function (win) {
+//       win.contentWindow.onload = function () {
+//         var webview = win.contentWindow.document.querySelector('#dashboard__content');
+//         webview.addEventListener('newwindow', function (e) {
+//           e.preventDefault();
+//           // e.targetUrl contains the target URL of the original link click
+//           // or window.open() call: use it to open your own window to it.
+//           // Something to keep in mind: window.open() called from the
+//           // app's event page is currently (Nov 2013) handicapped and buggy
+//           // (e.g. it doesn't have access to local storage, including cookie
+//           // store). You can try to use it here and below, but be prepare that
+//           // it may sometimes produce bad results.
+//           console.log('hi');
+//           // chrome.app.window.create(e.targetUrl, ...);
+//         });
+//       };
+//     }
+//   );
+// });
