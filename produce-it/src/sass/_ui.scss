@@ -1,0 +1,14 @@
+.button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  cursor: pointer;
+  font: inherit;
+  width: 100%;
+  font-weight: bold;
+  margin: 0 auto;
+  &__theme {
+    border: $shadow-dark;
+  }
+}
