@@ -3,18 +3,22 @@ import ReactDOM from 'react-dom';
 import Theme from '../../components/theme/Theme';
 
 function copyStyles(sourceDoc, targetDoc) {
-  Array.from(sourceDoc.styleSheets).forEach(styleSheet => {
+  let targetTheme = sourceDoc.querySelector('.lemon').style
+  Array.from(targetTheme).forEach(styleSheet => {
+    console.log('styleSheet (╯°□°)╯︵ ┻━┻ ', styleSheet)
     if (styleSheet.cssRules) { // true for inline styles
+      console.log('styleSheet.cssRules (╯°□°)╯︵ ┻━┻ ', styleSheet.cssRules)
       const newStyleEl = sourceDoc.createElement('style');
-
       Array.from(styleSheet.cssRules).forEach(cssRule => {
         newStyleEl.appendChild(sourceDoc.createTextNode(cssRule.cssText));
+        console.log('newStyleEl (╯°□°)╯︵ ┻━┻ ', newStyleEl)
+        console.log('cssRule (╯°□°)╯︵ ┻━┻ ', cssRule)
       });
 
+      console.log('newStyleEl (╯°□°)╯︵ ┻━┻ ', newStyleEl)
       targetDoc.head.appendChild(newStyleEl);
     } else if (styleSheet.href) { // true for stylesheets loaded from a URL
       const newLinkEl = sourceDoc.createElement('link');
-
       newLinkEl.rel = 'stylesheet';
       newLinkEl.href = styleSheet.href;
       targetDoc.head.appendChild(newLinkEl);
@@ -31,10 +35,11 @@ class ProduceIt extends React.PureComponent {
 
   componentDidMount() {
     // STEP 3: open a new browser window and store a reference to it
-    this.noteWindow = window.open('', '', 'width=600,height=400,left=200,top=200');
+    this.noteWindow = window.open('', '', 'width=600,height=400,left=200,top=200,strWindowFeatures=\'no\'');
 
     // STEP 4: append the container <div> (that has props.children appended to it) to the body of the new window
-    this.noteWindow.document .body.appendChild(this.containerEl);
+    console.log('document.body (╯°□°)╯︵ ┻━┻ ', document.body)
+    this.noteWindow.document.body.appendChild(this.containerEl);
 
     this.noteWindow.document.title = 'A React portal window';
     copyStyles(document, this.noteWindow.document);
@@ -78,12 +83,6 @@ export default class ThemeManager extends React.PureComponent {
     window.addEventListener('beforeunload', () => {
       this.closeWindowPortal();
     });
-
-    window.setInterval(() => {
-      this.setState(state => ({
-        counter: state.counter + 1,
-      }));
-    }, 1000);
   }
 
   toggleWindowPortal() {
@@ -100,27 +99,27 @@ export default class ThemeManager extends React.PureComponent {
   render() {
     return (
       <div>
-        <h1>Counter: {this.state.counter}</h1>
-
         <button onClick={this.toggleWindowPortal}>
           {this.state.showWindowPortal ? 'Close the' : 'Open a'} Portal
         </button>
 
-        <Theme 
-          style={{border: '8px solid lemonchiffon', backgroundColor: 'yellow', color: 'black'}} 
-          name='lemon' 
-          onClick={() => this.toggleWindowPortal()}
-          />
-        <Theme 
-          style={{border: '8px solid green', backgroundColor: 'purple', color: 'white'}} 
-          name='grape' 
-          onClick={() => this.toggleWindowPortal()}
-          />
-        <Theme 
-          style={{border: '8px solid green', 
-          backgroundColor: 'orangered', color: 'white'}} name='watermelon' 
-          onClick={() => this.toggleWindowPortal()}
-          />
+        <Theme
+          style={{ border: '8px solid lemonchiffon', backgroundColor: 'yellow', color: 'black' }}
+          name='lemon'
+          onClick={this.toggleWindowPortal}
+        />
+        <Theme
+          style={{ border: '8px solid green', backgroundColor: 'purple', color: 'white' }}
+          name='grape'
+          onClick={this.toggleWindowPortal}
+        />
+        <Theme
+          style={{
+            border: '8px solid green',
+            backgroundColor: 'orangered', color: 'white'
+          }} name='watermelon'
+          onClick={this.toggleWindowPortal}
+        />
 
         {this.state.showWindowPortal && (
           <ProduceIt closeWindowPortal={this.closeWindowPortal} >

@@ -15,15 +15,21 @@ class Theme extends Component {
   }
 
   componentDidMount() {
-    this.props.style ? this.setState({
+    return this.props.style ? this.setState({
       name: this.props.name,
       style: this.props.style
-    }) : 'fuck you give me a theme you piece of shit!!!!!!'
+    }) : 'No theme found :( try again'
   }
 
   render() {
     return (
-      <div style={this.props.style}>{this.props.name}</div>
+      <div
+        className={this.props.name}
+        style={this.props.style}>
+          <button onClick={this.props.onClick}>
+            {this.props.name}
+          </button>
+      </div>
     )
   }
 }
