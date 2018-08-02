@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 class NewTheme extends React.PureComponent {
   constructor(props) {
     super(props);
-
     this.state = {
       active: false,
       newTheme: {

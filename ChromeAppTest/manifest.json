@@ -3,12 +3,8 @@
   "description": "Chrome platform app.",
   "manifest_version": 2,
   "version": "0.2",
-  "app": {
-    "background": {
-      "scripts": [
-        "background.js"
-      ]
-    }
+  "browser_action": {
+    "default_popup": "index.html"
   },
   "permissions": [
     "background",
@@ -16,21 +12,6 @@
     "clipboardRead",
     "clipboardWrite",
     "storage",
-    "alwaysOnTopWindows",
-    "webview"
-  ],
-  "webview": {
-    "partitions": [
-      {
-        "name": "note_dashboard",
-        "accessible_resources": [
-          "new_note.html",
-          "jquery-3.3.1.min.js",
-          "*.js",
-          "*.html",
-          "*.css"
-        ]
-      }
-    ]
-  }
+    "alwaysOnTopWindows"
+  ]
 }

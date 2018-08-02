@@ -14,21 +14,21 @@ class ProduceIt extends React.PureComponent {
     super(props);
     this.containerEl = document.createElement('body'); // STEP 1: create an empty div
     this.state = {
-      theme: this.props.theme
+      activeTheme: this.props.theme
     }
     this.noteWindow = null;
   }
 
   componentDidMount() {
     // STEP 3: open a new browser window and store a reference to it
-    this.noteWindow = window.open('', '', 'status=0,resizeable=0,scroll=0,width=600,height=400,left=200,top=200,chrome=1,locationbar=0');
+    this.noteWindow = window.open('', '', 'status=0,resizeable=0,scroll=0,width=600,height=400,left=200,top=200,chrome=1,locationbar=0,frame=0,alwaysOnTop=true');
 
     // STEP 4: append the container <div> (that has props.children appended to it) to the body of the new window
     console.log('document.body (╯°□°)╯︵ ┻━┻ ', document.body)
     this.noteWindow.document.body.appendChild(this.containerEl);
 
     this.noteWindow.document.title = 'A React portal window';
-    let targetTheme = document.querySelector(`.${this.state.theme}`).style
+    let targetTheme = document.querySelector(`.${this.state.activeTheme}`).style
     copyStyles(targetTheme, this.noteWindow.document);
 
     // update the state in the parent component if the user closes the 
@@ -58,7 +58,7 @@ export default class ThemeManager extends React.PureComponent {
 
     this.state = {
       activeWindows: false,
-      theme: ''
+      activeTheme: ''
     };
 
     this.createProduceWindow = this.createProduceWindow.bind(this);
@@ -73,10 +73,13 @@ export default class ThemeManager extends React.PureComponent {
 
   createProduceWindow(e) {
     let parentTheme = e.target.className
+    let windowCount = this.state.activeWindows
+    console.log(' windowCount(╯°□°)╯︵ ┻━┻ ', windowCount)
     this.setState(state => ({
       ...state,
-      theme: parentTheme,
-      activeWindows: [`${parentTheme}`] += 1
+      activeTheme: parentTheme,
+      activeWindows: true,
+      
     }));
   }
 
@@ -123,8 +126,8 @@ export default class ThemeManager extends React.PureComponent {
         />
 
         {this.state.activeWindows && (
-          <ProduceIt theme={this.state.theme} closeWindowPortal={this.closeWindowPortal} >
-            <h1>I am a {this.state.theme}</h1>
+          <ProduceIt theme={this.state.activeTheme} closeWindowPortal={this.closeWindowPortal} >
+            <h1>I am a {this.state.activeTheme}</h1>
             <p>Even though I render in a different window, I share state!</p>
 
             <button onClick={() => this.closeWindowPortal()} >
