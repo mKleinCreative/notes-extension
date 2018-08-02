@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import Theme from '../../components/theme/Theme';
 
 function copyStyles(sourceDoc, targetDoc) {
-  let targetTheme = sourceDoc.querySelector('.lemon').style
-  Array.from(targetTheme).forEach(styleSheet => {
+
+  Array.from(sourceDoc).forEach(styleSheet => {
     console.log('styleSheet (╯°□°)╯︵ ┻━┻ ', styleSheet)
     if (styleSheet.cssRules) { // true for inline styles
       console.log('styleSheet.cssRules (╯°□°)╯︵ ┻━┻ ', styleSheet.cssRules)
@@ -14,7 +14,7 @@ function copyStyles(sourceDoc, targetDoc) {
         console.log('newStyleEl (╯°□°)╯︵ ┻━┻ ', newStyleEl)
         console.log('cssRule (╯°□°)╯︵ ┻━┻ ', cssRule)
       });
-
+      console.log('targetDocy (╯°□°)╯︵ ┻━┻ ', targetDoc)
       console.log('newStyleEl (╯°□°)╯︵ ┻━┻ ', newStyleEl)
       targetDoc.head.appendChild(newStyleEl);
     } else if (styleSheet.href) { // true for stylesheets loaded from a URL
@@ -35,14 +35,15 @@ class ProduceIt extends React.PureComponent {
 
   componentDidMount() {
     // STEP 3: open a new browser window and store a reference to it
-    this.noteWindow = window.open('', '', 'width=600,height=400,left=200,top=200,strWindowFeatures=\'no\'');
+    this.noteWindow = window.open('', '', 'width=600,height=400,left=200,top=200,chrome=yes');
 
     // STEP 4: append the container <div> (that has props.children appended to it) to the body of the new window
     console.log('document.body (╯°□°)╯︵ ┻━┻ ', document.body)
     this.noteWindow.document.body.appendChild(this.containerEl);
 
     this.noteWindow.document.title = 'A React portal window';
-    copyStyles(document, this.noteWindow.document);
+    let targetTheme = document.querySelector('.lemon').style
+    copyStyles(targetTheme, this.noteWindow.document);
 
     // update the state in the parent component if the user closes the 
     // new window
