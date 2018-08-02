@@ -57,12 +57,11 @@ export default class ThemeManager extends React.PureComponent {
     super(props);
 
     this.state = {
-      counter: 0,
       showWindowPortal: false,
       theme: ''
     };
 
-    this.toggleWindowPortal = this.toggleWindowPortal.bind(this);
+    this.createProduceWindow = this.createProduceWindow.bind(this);
     this.closeWindowPortal = this.closeWindowPortal.bind(this);
   }
 
@@ -72,7 +71,7 @@ export default class ThemeManager extends React.PureComponent {
     });
   }
 
-  toggleWindowPortal(e) {
+  createProduceWindow(e) {
     let parentTheme = e.target.className
     this.setState(state => ({
       ...state,
@@ -88,7 +87,7 @@ export default class ThemeManager extends React.PureComponent {
   render() {
     return (
       <div>
-        <button onClick={this.toggleWindowPortal}>
+        <button onClick={this.createProduceWindow}>
           {this.state.showWindowPortal ? 'Close the' : 'Open a'} Portal
         </button>
 
@@ -100,7 +99,7 @@ export default class ThemeManager extends React.PureComponent {
             margin: '0' 
           }}
           name='lemon'
-          onClick={this.toggleWindowPortal}
+          onClick={this.createProduceWindow}
         />
         <Theme
           style={{ 
@@ -110,7 +109,7 @@ export default class ThemeManager extends React.PureComponent {
             margin: '0'
           }}
           name='grape'
-          onClick={this.toggleWindowPortal}
+          onClick={this.createProduceWindow}
         />
         <Theme
           style={{
@@ -120,7 +119,7 @@ export default class ThemeManager extends React.PureComponent {
             margin: '0'
           }} 
           name='watermelon'
-          onClick={this.toggleWindowPortal}
+          onClick={this.createProduceWindow}
         />
 
         {this.state.showWindowPortal && (
