@@ -39,7 +39,7 @@ class ProduceIt extends React.PureComponent {
   }
 
   componentWillUnmount() {
-    // This will fire when this.state.showWindowPortal in the parent component becomes false
+    // This will fire when this.state.activeWindows in the parent component becomes false
     // So we tidy up by just closing the window
     this.noteWindow.close();
   }
@@ -57,7 +57,7 @@ export default class ThemeManager extends React.PureComponent {
     super(props);
 
     this.state = {
-      showWindowPortal: false,
+      activeWindows: false,
       theme: ''
     };
 
@@ -76,19 +76,19 @@ export default class ThemeManager extends React.PureComponent {
     this.setState(state => ({
       ...state,
       theme: parentTheme,
-      showWindowPortal: !state.showWindowPortal,
+      activeWindows: [`${parentTheme}`] += 1
     }));
   }
 
   closeWindowPortal() {
-    this.setState({ showWindowPortal: false })
+    this.setState({ activeWindows: false })
   }
 
   render() {
     return (
       <div>
         <button onClick={this.createProduceWindow}>
-          {this.state.showWindowPortal ? 'Close the' : 'Open a'} Portal
+          {this.state.activeWindows ? 'Close the' : 'Open a'} Portal
         </button>
 
         <Theme
@@ -122,7 +122,7 @@ export default class ThemeManager extends React.PureComponent {
           onClick={this.createProduceWindow}
         />
 
-        {this.state.showWindowPortal && (
+        {this.state.activeWindows && (
           <ProduceIt theme={this.state.theme} closeWindowPortal={this.closeWindowPortal} >
             <h1>I am a {this.state.theme}</h1>
             <p>Even though I render in a different window, I share state!</p>
