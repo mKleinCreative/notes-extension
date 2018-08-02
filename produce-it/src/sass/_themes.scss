@@ -1,6 +1,6 @@
 .themes {
     grid-column: center-start / center-end;
-
+    -webkit-app-region: drag;
     margin: 15rem 0;
 
     @supports(display: grid) {
@@ -12,9 +12,12 @@
     }
 }
 
+.themeManager {
+    -webkit-app-region: drag;
+}
 
 .theme {
-
+    -webkit-app-region: drag;
     float: left;
     width: 33.3333%;
     margin-bottom: 6rem;
