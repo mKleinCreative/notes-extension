@@ -3,46 +3,32 @@ import ReactDOM from 'react-dom';
 import Theme from '../../components/theme/Theme';
 
 function copyStyles(sourceDoc, targetDoc) {
-
-  Array.from(sourceDoc).forEach(styleSheet => {
-    console.log('styleSheet (╯°□°)╯︵ ┻━┻ ', styleSheet)
-    if (styleSheet.cssRules) { // true for inline styles
-      console.log('styleSheet.cssRules (╯°□°)╯︵ ┻━┻ ', styleSheet.cssRules)
-      const newStyleEl = sourceDoc.createElement('style');
-      Array.from(styleSheet.cssRules).forEach(cssRule => {
-        newStyleEl.appendChild(sourceDoc.createTextNode(cssRule.cssText));
-        console.log('newStyleEl (╯°□°)╯︵ ┻━┻ ', newStyleEl)
-        console.log('cssRule (╯°□°)╯︵ ┻━┻ ', cssRule)
-      });
-      console.log('targetDocy (╯°□°)╯︵ ┻━┻ ', targetDoc)
-      console.log('newStyleEl (╯°□°)╯︵ ┻━┻ ', newStyleEl)
-      targetDoc.head.appendChild(newStyleEl);
-    } else if (styleSheet.href) { // true for stylesheets loaded from a URL
-      const newLinkEl = sourceDoc.createElement('link');
-      newLinkEl.rel = 'stylesheet';
-      newLinkEl.href = styleSheet.href;
-      targetDoc.head.appendChild(newLinkEl);
-    }
-  });
+  console.log("sourceDoc", sourceDoc.cssText);
+  targetDoc
+    .getElementsByTagName("body")[0]
+    .setAttribute("style", sourceDoc.cssText);
 }
 
 class ProduceIt extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.containerEl = document.createElement('div'); // STEP 1: create an empty div
+    this.containerEl = document.createElement('body'); // STEP 1: create an empty div
+    this.state = {
+      theme: this.props.theme
+    }
     this.noteWindow = null;
   }
 
   componentDidMount() {
     // STEP 3: open a new browser window and store a reference to it
-    this.noteWindow = window.open('', '', 'width=600,height=400,left=200,top=200,chrome=yes');
+    this.noteWindow = window.open('', '', 'status=0,resizeable=0,scroll=0,width=600,height=400,left=200,top=200,chrome=1,locationbar=0');
 
     // STEP 4: append the container <div> (that has props.children appended to it) to the body of the new window
     console.log('document.body (╯°□°)╯︵ ┻━┻ ', document.body)
     this.noteWindow.document.body.appendChild(this.containerEl);
 
     this.noteWindow.document.title = 'A React portal window';
-    let targetTheme = document.querySelector('.lemon').style
+    let targetTheme = document.querySelector(`.${this.state.theme}`).style
     copyStyles(targetTheme, this.noteWindow.document);
 
     // update the state in the parent component if the user closes the 
@@ -86,9 +72,11 @@ export default class ThemeManager extends React.PureComponent {
     });
   }
 
-  toggleWindowPortal() {
+  toggleWindowPortal(e) {
+    let parentTheme = e.target.className
     this.setState(state => ({
       ...state,
+      theme: parentTheme,
       showWindowPortal: !state.showWindowPortal,
     }));
   }
@@ -105,26 +93,39 @@ export default class ThemeManager extends React.PureComponent {
         </button>
 
         <Theme
-          style={{ border: '8px solid lemonchiffon', backgroundColor: 'yellow', color: 'black' }}
+          style={{ 
+            border: '8px solid lemonchiffon', 
+            backgroundColor: 'yellow', 
+            color: 'black', 
+            margin: '0' 
+          }}
           name='lemon'
           onClick={this.toggleWindowPortal}
         />
         <Theme
-          style={{ border: '8px solid green', backgroundColor: 'purple', color: 'white' }}
+          style={{ 
+            border: '8px solid green', 
+            backgroundColor: 'purple', 
+            color: 'white', 
+            margin: '0'
+          }}
           name='grape'
           onClick={this.toggleWindowPortal}
         />
         <Theme
           style={{
             border: '8px solid green',
-            backgroundColor: 'orangered', color: 'white'
-          }} name='watermelon'
+            backgroundColor: 'orangered', 
+            color: 'white', 
+            margin: '0'
+          }} 
+          name='watermelon'
           onClick={this.toggleWindowPortal}
         />
 
         {this.state.showWindowPortal && (
-          <ProduceIt closeWindowPortal={this.closeWindowPortal} >
-            <h1>Counter in a portal: {this.state.counter}</h1>
+          <ProduceIt theme={this.state.theme} closeWindowPortal={this.closeWindowPortal} >
+            <h1>I am a {this.state.theme}</h1>
             <p>Even though I render in a different window, I share state!</p>
 
             <button onClick={() => this.closeWindowPortal()} >
