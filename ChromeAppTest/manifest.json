@@ -3,6 +3,7 @@
   "description": "Chrome platform app.",
   "manifest_version": 2,
   "version": "0.2",
+  "display": "standalone",
   "browser_action": {
     "default_popup": "index.html"
   },

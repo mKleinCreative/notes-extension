@@ -21,8 +21,11 @@ let colorTheme = {
 
 function* idMaker() {
   var index = 0;
-  while (index < index + 1)
-    yield index++;
+  var latest = 0;
+  while (index < latest + 1)
+    if (index < latest) index = latest
+    latest = index++
+    yield latest;
 }
 
 var idFactory = idMaker();

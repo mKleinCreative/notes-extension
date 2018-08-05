@@ -26,9 +26,9 @@ class Theme extends Component {
       <div
         className={this.props.name}
         style={this.props.style}>
-          <button className={this.props.name} onClick={this.props.onClick}>
+          <a className={this.props.name} onClick={this.props.onClick}>
             {this.props.name}
-          </button>
+          </a>
       </div>
     )
   }

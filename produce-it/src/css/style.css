@@ -7,7 +7,8 @@
 
 html {
   box-sizing: border-box;
-  font-size: 62.5%; }
+  font-size: 62.5%;
+  -webkit-app-region: drag; }
   @media only screen and (max-width: 75em) {
     html {
       font-size: 50%; } }
@@ -16,7 +17,8 @@ body {
   font-family: "Nunito", sans-serif;
   color: #6D5D4B;
   font-weight: 300;
-  line-height: 1.6; }
+  line-height: 1.6;
+  -webkit-app-region: drag; }
 
 .container {
   display: grid;
@@ -32,6 +34,7 @@ body {
 
 .themes {
   grid-column: center-start / center-end;
+  -webkit-app-region: drag;
   margin: 15rem 0; }
   @supports (display: grid) {
     .themes {
@@ -40,7 +43,11 @@ body {
       grid-gap: 6rem;
       align-items: start; } }
 
+.themeManager {
+  -webkit-app-region: drag; }
+
 .theme {
+  -webkit-app-region: drag;
   float: left;
   width: 33.3333%;
   margin-bottom: 6rem;
