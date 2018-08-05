@@ -6,7 +6,9 @@
   "app": {
     "background": {
       "scripts": [
-        "background.js"
+        "background.js",
+        "service-worker.js",
+        "./static/js/*"
       ]
     }
   },

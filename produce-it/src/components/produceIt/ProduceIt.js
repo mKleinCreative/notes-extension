@@ -16,8 +16,8 @@ export default class ProduceIt extends React.PureComponent {
 
   componentDidMount() {
     // STEP 3: open a new browser window and store a reference to it
-    this.noteWindow = new Promise(function (resolve, reject) {
-      chrome.app.window.create("new_note.htgaaml",
+    this.setState({
+      noteWindow: chrome.app.window.create("index.html",
         {
           frame: "none",
           id: `postit-${this.idFactory.next().value}`,
@@ -31,20 +31,21 @@ export default class ProduceIt extends React.PureComponent {
           }
         }
       )
+    }).then(() => {
+      // STEP 4: append the container <div> (that has props.children appended to it) to the body of the new window
+      this.noteWindow.document.body.appendChild(this.containerEl);
+
+      this.noteWindow.document.title = 'A React portal window';
+      let targetTheme = document.querySelector(`.${this.state.activeTheme}`).style
+      copyStyles(targetTheme, this.noteWindow.document);
+
+      // update the state in the parent component if the user closes the 
+      // new window
+      this.noteWindow.addEventListener('load', () => {
+        this.props.closeWindowPortal();
+      });
+
     })
-
-    // STEP 4: append the container <div> (that has props.children appended to it) to the body of the new window
-    this.noteWindow.document.body.appendChild(this.containerEl);
-
-    this.noteWindow.document.title = 'A React portal window';
-    let targetTheme = document.querySelector(`.${this.state.activeTheme}`).style
-    copyStyles(targetTheme, this.noteWindow.document);
-
-    // update the state in the parent component if the user closes the 
-    // new window
-    this.noteWindow.addEventListener('beforeunload', () => {
-      this.props.closeWindowPortal();
-    });
   }
 
   componentWillUnmount() {

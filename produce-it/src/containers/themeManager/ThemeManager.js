@@ -16,7 +16,7 @@ export default class ThemeManager extends React.PureComponent {
   }
 
   componentDidMount() {
-    window.addEventListener('beforeunload', () => {
+    window.addEventListener('load', () => {
       this.closeWindowPortal();
     });
   }
@@ -28,8 +28,7 @@ export default class ThemeManager extends React.PureComponent {
     this.setState(state => ({
       ...state,
       activeTheme: parentTheme,
-      activeWindows: true,
-      
+      activeWindows: true
     }));
   }
 
